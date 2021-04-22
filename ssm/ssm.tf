@@ -25,9 +25,11 @@ resource "aws_ssm_parameter" "jira_admin_password" {
 ## For Aurora PostgreSQL
 ## it must contain 8–128 printable ASCII characters.
 ## It can't contain /, ", @, or a space.
+## But in practice can't be over 99 or this error is produced ¯\_(ツ)_/¯
+## "Error: error creating RDS cluster: InvalidParameterValue: The parameter MasterUserPassword is not a valid password because it is longer than 99 characters."
 
 resource "random_password" "rds_cluster_master_password" {
-  length           = 124
+  length           = 99
   special          = true
   override_special = "!$%&*()-_=+[]{}<>:?"
 }
