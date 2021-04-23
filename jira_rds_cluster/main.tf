@@ -20,11 +20,12 @@ module "jira_db" {
   instance_type         = "db.r5.large"
   instance_type_replica = "db.t3.medium"
 
-  vpc_id                = data.terraform_remote_state.vpc.outputs.vpc_id
-  db_subnet_group_name  = aws_db_subnet_group.jira_db_subnet_group.name
-  create_security_group = true
+  vpc_id                     = data.terraform_remote_state.vpc.outputs.vpc_id
+  db_subnet_group_name       = aws_db_subnet_group.jira_db_subnet_group.name
+  create_security_group      = true
   security_group_description = "Jira DB"
-  allowed_cidr_blocks   = local.private_subnets_cidr_blocks
+  #allowed_cidr_blocks        = local.private_subnets_cidr_blocks
+  allowed_security_groups    = local.allowed_security_groups
 
   replica_count                       = 2
   iam_database_authentication_enabled = true
