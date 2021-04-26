@@ -3,5 +3,9 @@ include {
 }
 
 dependencies {
-  paths = ["../iam", "../kms", "../security-groups"]
+  paths = [
+    "../iam",
+    "../kms",
+    "../security-groups"
+  ]
 }
