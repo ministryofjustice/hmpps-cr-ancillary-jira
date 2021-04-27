@@ -17,3 +17,7 @@ variable "remote_state_bucket_name" {
 variable "environment_identifier" {
   description = "resource label or name"
 }
+
+variable "allowed_jira_cidr" {
+  type = list(string)
+}

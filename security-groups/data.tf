@@ -20,6 +20,11 @@ locals {
 //    data.terraform_remote_state.vpc.outputs.vpc_subnet["az2"]["id"]["db"],
 //    data.terraform_remote_state.vpc.outputs.vpc_subnet["az3"]["id"]["db"],
 //  ]
+  db_subnets_cidr_blocks = [
+    data.terraform_remote_state.vpc.outputs.vpc_subnet["az1"]["cidr"]["db"],
+    data.terraform_remote_state.vpc.outputs.vpc_subnet["az2"]["cidr"]["db"],
+    data.terraform_remote_state.vpc.outputs.vpc_subnet["az3"]["cidr"]["db"],
+  ]
 //  private_subnets_cidr_blocks = [
 //    data.terraform_remote_state.vpc.outputs.vpc_subnet["az1"]["cidr"]["private"],
 //    data.terraform_remote_state.vpc.outputs.vpc_subnet["az2"]["cidr"]["private"],
