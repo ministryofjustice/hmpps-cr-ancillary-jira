@@ -17,3 +17,8 @@ variable "remote_state_bucket_name" {
 variable "environment_identifier" {
   description = "resource label or name"
 }
+
+variable "ecs_cluster_namespace_name" {
+  description = "Private namespace domain name value"
+  default     = "ecs.cluster"
+}
