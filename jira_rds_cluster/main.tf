@@ -10,6 +10,20 @@ resource "aws_db_subnet_group" "jira_db_subnet_group" {
   )
 }
 
+resource "aws_db_parameter_group" "jira_db" {
+  name        = "${local.name}-aurora-db-postgres11-parameter-group"
+  family      = "aurora-postgresql11"
+  description = "${local.name}-aurora-db-postgres11-parameter-group"
+  tags        = var.tags
+}
+
+resource "aws_rds_cluster_parameter_group" "jira_db" {
+  name        = "${local.name}-aurora-postgres11-cluster-parameter-group"
+  family      = "aurora-postgresql11"
+  description = "${local.name}-aurora-postgres11-cluster-parameter-group"
+  tags        = var.tags
+}
+
 module "jira_db" {
   source  = "terraform-aws-modules/rds-aurora/aws"
   version = "~> 4.2"
@@ -20,7 +34,7 @@ module "jira_db" {
   instance_type         = "db.r5.large"
   instance_type_replica = "db.t3.medium"
 
-  vpc_id                     = data.terraform_remote_state.vpc.outputs.vpc_id
+  vpc_id                     = local.vpc_id
   db_subnet_group_name       = aws_db_subnet_group.jira_db_subnet_group.name
   create_security_group      = true
   security_group_description = "Jira DB"
@@ -45,23 +59,6 @@ module "jira_db" {
 
   tags = var.tags
 }
-
-resource "aws_db_parameter_group" "jira_db" {
-  name        = "${local.name}-aurora-db-postgres11-parameter-group"
-  family      = "aurora-postgresql11"
-  description = "${local.name}-aurora-db-postgres11-parameter-group"
-  tags        = var.tags
-}
-
-resource "aws_rds_cluster_parameter_group" "jira_db" {
-  name        = "${local.name}-aurora-postgres11-cluster-parameter-group"
-  family      = "aurora-postgresql11"
-  description = "${local.name}-aurora-postgres11-cluster-parameter-group"
-  tags        = var.tags
-}
-
-
-
 
 //create_cluster
 //create_security_group
