@@ -4,7 +4,7 @@ resource "random_password" "jira_admin_password" {
 }
 
 resource "aws_ssm_parameter" "jira_admin_password" {
-  name        = "/${var.environment_name}/password"
+  name        = "/${var.environment_name}/jira/jira_admin_password"
   description = "JIRA Admin Password"
   type        = "SecureString"
   value       = random_password.jira_admin_password.result
@@ -12,7 +12,7 @@ resource "aws_ssm_parameter" "jira_admin_password" {
   tags = merge(
     var.tags,
     {
-      "Name" = "/${var.environment_name}/password"
+      "Name" = "/${var.environment_name}/jira/jira_admin_password"
     },
   )
 
