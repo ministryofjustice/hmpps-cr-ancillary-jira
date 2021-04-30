@@ -28,7 +28,10 @@ module "jira_db" {
   source  = "terraform-aws-modules/rds-aurora/aws"
   version = "~> 4.2"
 
-  name                  = local.name
+  database_name = "jira"
+
+
+  name                  = local.db_name
   engine                = "aurora-postgresql"
   engine_version        = "11.9"
   instance_type         = "db.r5.large"

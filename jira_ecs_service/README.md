@@ -7,3 +7,5 @@ Docker image from https://hub.docker.com/r/atlassian/jira-servicemanagement
 ```shell
 docker pull atlassian/jira-servicemanagement
 ```
+
+https://hub.docker.com/r/atlassian/jira-servicedesk

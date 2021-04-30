@@ -24,8 +24,9 @@ data "terraform_remote_state" "security-groups" {
 
 #
 locals {
-  name   = var.environment_name
-  vpc_id = data.terraform_remote_state.vpc.outputs.vpc_id
+  name    = var.environment_name
+  db_name = "jira"
+  vpc_id  = data.terraform_remote_state.vpc.outputs.vpc_id
   allowed_security_groups = [
     data.terraform_remote_state.security-groups.outputs.id["egress_to_rds_cluster"],
     data.terraform_remote_state.security-groups.outputs.id["egress_from_jira"]

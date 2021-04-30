@@ -57,3 +57,34 @@ resource "aws_ssm_parameter" "rds_cluster_master_username" {
     ignore_changes = [value]
   }
 }
+
+## Jira Database User
+resource "random_password" "jira_db_user_password" {
+  length           = 99
+  special          = true
+  override_special = "!$%&*()-_=+[]{}<>:?"
+}
+
+resource "aws_ssm_parameter" "jira_db_user_password" {
+  name        = "/${var.environment_name}/jira/jira_db_user_password"
+  description = "JIRA DB User Password"
+  type        = "SecureString"
+  value       = random_password.jira_db_user_password.result
+  tags        = merge(var.tags, { "Name" = "/${var.environment_name}/jira/jira_db_user_password" })
+
+  lifecycle {
+    ignore_changes = [value]
+  }
+}
+
+resource "aws_ssm_parameter" "jira_db_user" {
+  name        = "/${var.environment_name}/jira/jira_db_user"
+  description = "JIRA RDS Cluster Master Password"
+  type        = "String"
+  value       = "jira"
+  tags        = merge(var.tags, { "Name" = "/${var.environment_name}/jira/jira_db_user" })
+
+  lifecycle {
+    ignore_changes = [value]
+  }
+}
