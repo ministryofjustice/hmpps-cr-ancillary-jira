@@ -15,7 +15,7 @@ resource "aws_security_group" "ingress_to_jira_lb" {
 
 resource "aws_security_group_rule" "jira_lb_https_in_rule" {
   security_group_id = aws_security_group.ingress_to_jira_lb.id
-  cidr_blocks       = var.allowed_jira_cidr #["82.39.185.97/32", var.cidr_block, "35.176.14.16/32"] #var.allowed_jira_cidr
+  cidr_blocks       = concat(var.allowed_jira_cidr, local.natgateway_public_ips)
   type              = "ingress"
   from_port         = 443
   to_port           = 443
@@ -24,7 +24,7 @@ resource "aws_security_group_rule" "jira_lb_https_in_rule" {
 
 resource "aws_security_group_rule" "jira_lb_http_in_rule" {
   security_group_id = aws_security_group.ingress_to_jira_lb.id
-  cidr_blocks       = var.allowed_jira_cidr #["82.39.185.97/32", var.cidr_block, "35.176.14.16/32"] #var.allowed_jira_cidr
+  cidr_blocks       = concat(var.allowed_jira_cidr, local.natgateway_public_ips)
   type              = "ingress"
   from_port         = 80
   to_port           = 80
@@ -72,6 +72,15 @@ resource "aws_security_group_rule" "jira_alb_http_in_rule" {
   from_port                = 8080
   to_port                  = 8080
   protocol                 = "tcp"
+}
+
+resource "aws_security_group_rule" "jira_self_in_out_rule" {
+  security_group_id = aws_security_group.ingress_to_jira.id
+  self              = true
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
 }
 
 resource "aws_security_group" "egress_from_jira" {
