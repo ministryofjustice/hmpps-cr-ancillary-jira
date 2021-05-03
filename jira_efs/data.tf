@@ -32,4 +32,6 @@ locals {
     data.terraform_remote_state.vpc.outputs.vpc_subnet["az2"]["id"]["db"],
     data.terraform_remote_state.vpc.outputs.vpc_subnet["az3"]["id"]["db"],
   ]
+  internal_zone_id   = data.terraform_remote_state.vpc.outputs.zone["private"]["id"]
+  internal_zone_name = data.terraform_remote_state.vpc.outputs.zone["private"]["name"]
 }

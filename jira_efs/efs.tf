@@ -22,3 +22,11 @@ resource "aws_efs_mount_target" "jira_efs_mount" {
   subnet_id       = element(compact(local.db_subnet_ids), count.index)
   security_groups = local.efs_security_groups
 }
+
+resource "aws_route53_record" "jira_efs_private_dns" {
+  name    = "jira-efs"
+  zone_id = local.internal_zone_id
+  type    = "CNAME"
+  ttl     = 300
+  records = [ aws_efs_file_system.jira_efs.dns_name ]
+}
