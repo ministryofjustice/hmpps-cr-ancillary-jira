@@ -9,8 +9,9 @@ resource "aws_iam_role_policy" "jira_execute_policy" {
   role = aws_iam_role.jira_execute.name
   policy = templatefile("${path.module}/templates/iam/exec_policy.tpl",
     {
-      region         = var.region
-      aws_account_id = data.aws_caller_identity.current.account_id
+      region                = var.region
+      aws_account_id        = data.aws_caller_identity.current.account_id
+      jira_db_user_password = local.ssm_arn.jira_db_user_password
     }
   )
 }

@@ -10,7 +10,7 @@ resource "aws_service_discovery_service" "jira_web_svc_record" {
     routing_policy = "MULTIVALUE"
   }
   health_check_custom_config {
-    failure_threshold = 1
+    failure_threshold = 10
   }
 }
 
@@ -25,16 +25,31 @@ resource "aws_ecs_task_definition" "jira_service" {
   requires_compatibilities = ["FARGATE"]
   container_definitions = templatefile("${path.module}/templates/ecs/task_definition.tpl",
     {
-      region           = var.region
-      aws_account_id   = data.aws_caller_identity.current.account_id
-      environment_name = var.environment_name
-      container_name   = local.app_name
-      image_url        = var.jira_ecs_conf["image"]
-      image_version    = var.jira_ecs_conf["image_version"]
-      service_port     = var.jira_ecs_conf["service_port"]
-      log_group_name   = aws_cloudwatch_log_group.jira_service_log_group.name
+      region                = var.region
+      aws_account_id        = data.aws_caller_identity.current.account_id
+      environment_name      = var.environment_name
+      container_name        = local.app_name
+      image_url             = var.jira_ecs_conf["image"]
+      image_version         = var.jira_ecs_conf["image_version"]
+      service_port          = var.jira_ecs_conf["service_port"]
+      log_group_name        = aws_cloudwatch_log_group.jira_service_log_group.name
+      jc_login_duration     = var.jira_conf["login_duration"]
+      jira_db_endpoint      = local.jira_db_endpoint
+      jira_db_user          = local.ssm_value.jira_db_user
+      jira_db_user_password = local.ssm_arn.jira_db_user_password
+      jira_db_driver        = var.jira_conf["jira_db_driver"]
+      jira_db_type          = var.jira_conf["jira_db_type"]
+      jira_sharedhome       = var.jira_conf["sharedhome"]
+      volume_name           = var.jira_conf["volume_name"]
     }
   )
+  volume {
+    name = var.jira_conf["volume_name"]
+    efs_volume_configuration {
+      file_system_id     = local.efs["id"]
+      transit_encryption = "ENABLED"
+    }
+  }
   tags = merge(var.tags, map("Name", "${local.jira_service_name}-ecs"))
 }
 
@@ -45,7 +60,7 @@ resource "aws_ecs_service" "jira_service" {
   cluster         = data.terraform_remote_state.ecs_cluster.outputs.ecs_cluster["id"]
   task_definition = aws_ecs_task_definition.jira_service.arn
 
-  desired_count = 3
+  desired_count = 1
   launch_type   = "FARGATE"
 
   health_check_grace_period_seconds = 1
@@ -68,8 +83,8 @@ resource "aws_ecs_service" "jira_service" {
 
   depends_on = [aws_iam_role.jira_task]
 
-  lifecycle {
-    ignore_changes = [desired_count]
-  }
+  //  lifecycle {
+  //    ignore_changes = [desired_count]
+  //  }
   tags = merge(var.tags, map("Name", "${local.app_name}-service"))
 }

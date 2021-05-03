@@ -15,7 +15,7 @@ output "aws_lb_target_group" {
 }
 
 output "aws_route53_record" {
-  value = aws_route53_record.public_dns
+  value = aws_route53_record.alb_public_dns
 }
 
 output "aws_cloudwatch_log_group" {

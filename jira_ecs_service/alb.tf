@@ -27,8 +27,17 @@ resource "aws_lb_listener" "https_listener" {
   certificate_arn   = data.terraform_remote_state.vpc.outputs.strategic_public_ssl_arn[0]
 
   default_action {
-    target_group_arn = aws_lb_target_group.http.arn
-    type             = "forward"
+    type = "forward"
+    forward {
+      target_group {
+        arn = aws_lb_target_group.http.arn
+      }
+      stickiness {
+        enabled  = true
+        duration = 36000
+      }
+    }
+
   }
 }
 
@@ -48,14 +57,21 @@ resource "aws_lb_listener" "http_listener" {
 }
 
 # DNS
-resource "aws_route53_record" "public_dns" {
-  zone_id = data.terraform_remote_state.vpc.outputs.strategic_public_zone_id
-  name    = local.app_name
+resource "aws_route53_record" "alb_public_dns" {
+  name    = local.dns_name
+  zone_id = local.public_zone_id
   type    = "CNAME"
   ttl     = 300
   records = [aws_lb.alb.dns_name]
 }
 
+resource "aws_route53_record" "alb_internal_dns" {
+  name    = local.dns_name
+  zone_id = local.internal_zone_id
+  type    = "CNAME"
+  ttl     = 300
+  records = [aws_lb.alb.dns_name]
+}
 
 resource "aws_lb_target_group" "http" {
   name                 = "${var.environment_name}-http"
@@ -63,16 +79,20 @@ resource "aws_lb_target_group" "http" {
   protocol             = "HTTP"
   vpc_id               = local.vpc_id
   target_type          = "ip"
-  deregistration_delay = 90
+  deregistration_delay = 30
+
+  stickiness {
+    enabled = true
+    type    = "lb_cookie"
+  }
 
   health_check {
-    timeout             = 5
-    interval            = 30
-    path                = "/"
-    protocol            = "HTTP"
-    healthy_threshold   = 3
-    unhealthy_threshold = 3
-    matcher             = "200"
+    timeout           = 10
+    interval          = 20
+    path              = "/status"
+    protocol          = "HTTP"
+    healthy_threshold = 2
+    matcher           = "200"
   }
 
   depends_on = [aws_lb.alb]

@@ -30,11 +30,32 @@ data "terraform_remote_state" "ecs_cluster" {
     region = var.region
   }
 }
+
+data "terraform_remote_state" "jira_efs" {
+  backend = "s3"
+
+  config = {
+    bucket = var.remote_state_bucket_name
+    key    = "jira_efs/terraform.tfstate"
+    region = var.region
+  }
+}
+
+data "terraform_remote_state" "jira_rds_cluster" {
+  backend = "s3"
+
+  config = {
+    bucket = var.remote_state_bucket_name
+    key    = "jira_rds_cluster/terraform.tfstate"
+    region = var.region
+  }
+}
 #
 locals {
   name              = var.environment_name
   jira_service_name = "${local.name}-jira-service"
   app_name          = "jira"
+  dns_name          = "service"
   vpc_id            = data.terraform_remote_state.vpc.outputs.vpc_id
   namespace_id      = data.terraform_remote_state.ecs_cluster.outputs.ecs_cluster_private_namespace["id"]
   alb_security_groups = [
@@ -55,6 +76,12 @@ locals {
     data.terraform_remote_state.vpc.outputs.vpc_subnet["az2"]["id"]["private"],
     data.terraform_remote_state.vpc.outputs.vpc_subnet["az3"]["id"]["private"],
   ]
+  internal_zone_id   = data.terraform_remote_state.vpc.outputs.zone["private"]["id"]
+  internal_zone_name = data.terraform_remote_state.vpc.outputs.zone["private"]["name"]
+  public_zone_id     = data.terraform_remote_state.vpc.outputs.zone["public"]["id"]
+  public_zone_name   = data.terraform_remote_state.vpc.outputs.zone["public"]["name"]
+  jira_db_endpoint   = data.terraform_remote_state.jira_rds_cluster.outputs.rds_cluster["endpoint"]
+  efs                = data.terraform_remote_state.jira_efs.outputs.efs
 }
 
 //id = {
