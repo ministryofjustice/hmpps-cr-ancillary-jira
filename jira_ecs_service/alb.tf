@@ -32,10 +32,10 @@ resource "aws_lb_listener" "https_listener" {
       target_group {
         arn = aws_lb_target_group.http.arn
       }
-      stickiness {
-        enabled  = true
-        duration = 36000
-      }
+      //      stickiness {
+      //        enabled  = true
+      //        duration = 36000
+      //      }
     }
 
   }
@@ -87,12 +87,13 @@ resource "aws_lb_target_group" "http" {
   }
 
   health_check {
-    timeout           = 10
-    interval          = 20
-    path              = "/status"
-    protocol          = "HTTP"
-    healthy_threshold = 2
-    matcher           = "200"
+    timeout             = 60
+    interval            = 120
+    path                = "/status"
+    protocol            = "HTTP"
+    healthy_threshold   = 2
+    unhealthy_threshold = 6
+    matcher             = "200-399"
   }
 
   depends_on = [aws_lb.alb]

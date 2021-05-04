@@ -7,7 +7,7 @@ module "management_instance" {
   ec2_conf = {
     app_name      = "management"
     ami_id        = local.ami_id
-    instance_type = "t3.micro"
+    instance_type = "t3.xlarge"
     subnet_id     = local.private_subnet_ids[0]
     //    iam_instance_profile        = ""
     associate_public_ip_address = false

@@ -20,7 +20,8 @@ sudo yum install -y \
   gcc \
   postgresql \
   pip \
-  ansible
+  ansible \
+  socat
 
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
@@ -117,6 +118,7 @@ alias udl='less +G /var/log/user-data.log'
 alias ud='less /var/lib/cloud/instance/user-data.txt'
 alias catalinalog='tail -n 100 -F /home/logs/catalina.out'
 alias src='. ~/.bash_profile'
+alias postgresrds=". /etc/environment && socat TCP-LISTEN:5432,reuseaddr,fork TCP4:${JIRA_DB_ENDPOINT}:5432"
 EOF
 
 . ~/getcreds && . /etc/environment
@@ -177,3 +179,7 @@ chmod u+x ~/runboot.sh
 
 # Run the boot script
 ~/runboot.sh
+
+docker pull atlassian/jira-servicemanagement
+curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose

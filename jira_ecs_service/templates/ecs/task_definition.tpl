@@ -24,6 +24,26 @@
             "value": "${region}"
         },
         {
+            "name": "CLUSTERED",
+            "value": "true"
+        },
+        {
+            "name": "ATL_PROXY_NAME",
+            "value": "${alb_fqdn}"
+        },
+        {
+            "name": "ATL_PROXY_PORT",
+            "value": "443"
+        },
+        {
+            "name": "ATL_TOMCAT_SCHEME",
+            "value": "HTTPS"
+        },
+        {
+            "name": "ATL_TOMCAT_SECURE",
+            "value": "true"
+        },
+        {
             "name": "ATL_AUTOLOGIN_COOKIE_AGE",
             "value": "${jc_login_duration}"
         },
@@ -57,15 +77,24 @@
     "volumesFrom": [],
     "mountPoints": [
         {
-            "containerPath": "${jira_sharedhome}",
-            "sourceVolume": "${volume_name}"
+            "containerPath": "${sharedhome_path}",
+            "sourceVolume": "${shared_home_volume_name}"
+        },
+        {
+            "containerPath": "${jira_config_path}",
+            "sourceVolume": "${jira_config_volume_name}"
         }
     ],
     "portMappings": [
         {
-               "containerPort": ${service_port},
-               "hostPort": ${service_port},
-               "protocol": "tcp"
-            }
+            "containerPort": ${service_port},
+            "hostPort": ${service_port},
+            "protocol": "tcp"
+        },
+        {
+            "containerPort": ${ehcache_listener_port},
+            "hostPort": ${ehcache_listener_port},
+            "protocol": "tcp"
+        }
     ]
 }]
