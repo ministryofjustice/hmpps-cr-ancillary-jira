@@ -33,49 +33,49 @@ popd
 
 cat << EOF > ~/getcreds
 #!/usr/bin/env bash
-export rds_cluster_master_username="\$(aws ssm get-parameters \
+export RDS_CLUSTER_MASTER_USERNAME="\$(aws ssm get-parameters \
 --region ${region} \
 --with-decryption --name \
 "/${environment_name}/jira/rds_cluster_master_username" \
 --query Parameters | jq -r .[].Value)"
 
-export rds_cluster_master_password="\$(aws ssm get-parameters \
+export RDS_CLUSTER_MASTER_PASSWORD="\$(aws ssm get-parameters \
 --region ${region} \
 --with-decryption --name \
 "/${environment_name}/jira/rds_cluster_master_password" \
 --query Parameters | jq -r .[].Value)"
 
-export jira_db_user="\$(aws ssm get-parameters \
+export JIRA_DB_USER="\$(aws ssm get-parameters \
 --region ${region} \
 --with-decryption --name \
 "/${environment_name}/jira/jira_db_user" \
 --query Parameters | jq -r .[].Value)"
 
-export jira_db_user_password="\$(aws ssm get-parameters \
+export JIRA_DB_USER_PASSWORD="\$(aws ssm get-parameters \
 --region ${region} \
 --with-decryption --name \
 "/${environment_name}/jira/jira_db_user_password" \
 --query Parameters | jq -r .[].Value)"
 
-export database_name="\$(aws ssm get-parameters \
+export DATABASE_NAME="\$(aws ssm get-parameters \
 --region ${region} \
 --with-decryption --name \
 "/${environment_name}/jira/database_name" \
 --query Parameters | jq -r .[].Value)"
 
-export db_endpoint="\$(aws ssm get-parameters \
+export DB_ENDPOINT="\$(aws ssm get-parameters \
 --region ${region} \
 --with-decryption --name \
 "/${environment_name}/jira/db_endpoint" \
 --query Parameters | jq -r .[].Value)"
 
-export db_port="\$(aws ssm get-parameters \
+export DB_PORT="\$(aws ssm get-parameters \
 --region ${region} \
 --with-decryption --name \
 "/${environment_name}/jira/db_port" \
 --query Parameters | jq -r .[].Value)"
 
-export jira_admin_password="\$(aws ssm get-parameters \
+export JIRA_ADMIN_PASSWORD="\$(aws ssm get-parameters \
 --region ${region} \
 --with-decryption --name \
 "/${environment_name}/jira/jira_admin_password" \
@@ -112,20 +112,20 @@ cat << EOF >> ~/.bash_profile
 
 alias getenv='. /etc/environment && cat /etc/environment'
 alias creds='. ~/getcreds && . /etc/environment'
-alias mycli='mysql --host="\$JIRA_DB_ENDPOINT" --user="\$DB_MASTER_USER" --password="\$db_master_password" jira'
+alias mycli='mysql --host="\$JIRA_DB_ENDPOINT" --user="\$DB_MASTER_USER" --password="\$DB_MASTER_PASSWORD" jira'
 alias tailudl='tail -n 100 -F /var/log/user-data.log'
 alias udl='less +G /var/log/user-data.log'
 alias ud='less /var/lib/cloud/instance/user-data.txt'
 alias catalinalog='tail -n 100 -F /home/logs/catalina.out'
 alias src='. ~/.bash_profile'
-alias postgresrds=". /etc/environment && socat TCP-LISTEN:5432,reuseaddr,fork TCP4:${JIRA_DB_ENDPOINT}:5432"
-alias dbcli="psql -h ${db_endpoint} -p ${db_port} -U jira jira"
+alias postgresrds=". /etc/environment && socat TCP-LISTEN:5432,reuseaddr,fork TCP4:\$JIRA_DB_ENDPOINT:5432"
+alias dbcli="psql -h \$db_endpoint -p \$db_port -U jira jira"
 EOF
 
 . ~/getcreds && . /etc/environment
 
 cat << EOF >> ~/.pgpass
-\$db_endpoint:\$db_port:\$database_name:\$rds_cluster_master_username:\$rds_cluster_master_password
+\$DB_ENDPOINT:\$DB_PORT:\$DATABASE_NAME:\$RDS_CLUSTER_MASTER_USERNAME:\$RDS_CLUSTER_MASTER_PASSWORD
 EOF
 
 chmod 0600 ~/.pgpass
@@ -142,11 +142,8 @@ EOF
 # Setup Ansible Vars
 cat << EOF > ~/vars.yml
 jira_data_volume_id: ${jira_data_volume_id}
-jira_db_host: ${db_endpoint}
-jira_db_master_username: ${rds_cluster_master_username}
-jira_db_master_password: ${rds_cluster_master_password}
-jira_db_user_password:
-
+jira_db_host: ${jira_db_endpoint}
+jira_db_master_username: ${jira_db_master_username}
 
 EOF
 
@@ -171,8 +168,8 @@ ansible-galaxy install -f -r ~/requirements.yml
 ansible-playbook ~/ansible_bootstrap.yml \
 -b -vvvv \
 --extra-vars "{ \
-'jira_db_master_password':'\$rds_cluster_master_password', \
-'jira_db_user_password':'\$jira_db_user_password' \
+'jira_db_master_password':'\$RDS_CLUSTER_MASTER_PASSWORD', \
+'jira_db_user_password':'\$JIRA_DB_USER_PASSWORD' \
 }"
 EOF
 #

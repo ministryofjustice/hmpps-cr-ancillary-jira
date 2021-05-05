@@ -20,6 +20,7 @@ module "management_instance" {
     jira_data_volume_id       = local.efs["id"]
     jira_data_dns_name        = local.efs["dns_name"]
     jira_db_endpoint          = local.rds_cluster["endpoint"]
+    jira_db_master_username   = local.rds_cluster["master_username"]
     jira_cloudwatch_log_group = ""
   }
 }

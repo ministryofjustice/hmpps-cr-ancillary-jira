@@ -27,5 +27,6 @@ data "template_file" "ec2_user_data_template" {
     app_name                  = var.ec2_conf["app_name"]
     jira_data_volume_id       = var.jira_conf["jira_data_volume_id"]
     jira_db_endpoint          = var.jira_conf["jira_db_endpoint"]
+    jira_db_master_username   = var.jira_conf["jira_db_master_username"]
   }
 }
