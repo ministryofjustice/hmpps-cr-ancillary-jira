@@ -25,7 +25,7 @@
         },
         {
             "name": "CLUSTERED",
-            "value": "true"
+            "value": "false"
         },
         {
             "name": "ATL_PROXY_NAME",

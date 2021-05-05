@@ -74,8 +74,9 @@ resource "aws_ecs_service" "jira_service" {
   cluster         = data.terraform_remote_state.ecs_cluster.outputs.ecs_cluster["id"]
   task_definition = aws_ecs_task_definition.jira_service.arn
 
-  desired_count = 1
-  launch_type   = "FARGATE"
+  desired_count = 0
+  launch_type   = "EC2"
+//  launch_type   = "FARGATE"
 
   health_check_grace_period_seconds = 1
 

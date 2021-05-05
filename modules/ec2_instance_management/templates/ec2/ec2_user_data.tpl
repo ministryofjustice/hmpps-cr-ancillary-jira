@@ -119,6 +119,7 @@ alias ud='less /var/lib/cloud/instance/user-data.txt'
 alias catalinalog='tail -n 100 -F /home/logs/catalina.out'
 alias src='. ~/.bash_profile'
 alias postgresrds=". /etc/environment && socat TCP-LISTEN:5432,reuseaddr,fork TCP4:${JIRA_DB_ENDPOINT}:5432"
+alias dbcli="psql -h ${db_endpoint} -p ${db_port} -U jira jira"
 EOF
 
 . ~/getcreds && . /etc/environment

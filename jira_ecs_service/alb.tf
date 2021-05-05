@@ -88,12 +88,11 @@ resource "aws_lb_target_group" "http" {
 
   health_check {
     timeout             = 60
-    interval            = 120
+    interval            = 300
     path                = "/status"
     protocol            = "HTTP"
     healthy_threshold   = 2
-    unhealthy_threshold = 6
-    matcher             = "200-399"
+    matcher             = "200-499"
   }
 
   depends_on = [aws_lb.alb]
