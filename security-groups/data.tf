@@ -23,8 +23,9 @@ data "terraform_remote_state" "natgateway" {
 }
 
 locals {
-  name   = var.environment_name
-  vpc_id = data.terraform_remote_state.vpc.outputs.vpc_id
+  name           = var.environment_name
+  vpc_id         = data.terraform_remote_state.vpc.outputs.vpc_id
+  vpc_cidr_block = [data.terraform_remote_state.vpc.outputs.vpc_cidr_block]
   //  db_subnet_ids = [
   //    data.terraform_remote_state.vpc.outputs.vpc_subnet["az1"]["id"]["db"],
   //    data.terraform_remote_state.vpc.outputs.vpc_subnet["az2"]["id"]["db"],
@@ -50,4 +51,5 @@ locals {
     "${data.terraform_remote_state.natgateway.outputs.this["az2"]["public_ip"]}/32",
     "${data.terraform_remote_state.natgateway.outputs.this["az3"]["public_ip"]}/32"
   ]
+
 }
