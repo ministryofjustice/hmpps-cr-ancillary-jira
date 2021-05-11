@@ -9,6 +9,6 @@ data "terraform_remote_state" "jira_efs" {
 }
 locals {
   efs_mount_target = data.terraform_remote_state.jira_efs.outputs.efs_mount_target
-  efs = data.terraform_remote_state.jira_efs.outputs.efs
-  backup = data.terraform_remote_state.jira_efs.outputs.backup
+  efs              = data.terraform_remote_state.jira_efs.outputs.efs
+  backup           = data.terraform_remote_state.jira_efs.outputs.backup
 }

@@ -30,7 +30,7 @@ data "aws_ami" "ecs_ami" {
 # IAM Templates
 data "template_file" "ecs_assume_role_template" {
   template = file("${path.module}/templates/iam/ecs-host-assumerole-policy.tpl")
-  vars = {}
+  vars     = {}
 }
 
 data "template_file" "ecs_host_role_policy_template" {

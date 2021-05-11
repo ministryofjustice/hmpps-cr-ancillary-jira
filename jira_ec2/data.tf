@@ -31,10 +31,10 @@ data "aws_ami" "latest_ecs" {
     values = ["amzn2-ami-ecs-hvm-2.0.*"]
   }
 
-//  filter {
-//    name = "description"
-//    values = ["Amazon Linux AMI 2.0 *"]
-//  }
+  //  filter {
+  //    name = "description"
+  //    values = ["Amazon Linux AMI 2.0 *"]
+  //  }
 
   filter {
     name   = "virtualization-type"

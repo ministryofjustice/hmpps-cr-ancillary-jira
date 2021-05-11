@@ -1,6 +1,6 @@
 # Host Launch Configuration
 resource "aws_launch_configuration" "ecs_host_lc" {
-  name                 = "${local.name}-ecscluster-private-asg"
+  name                        = "${local.name}-ecscluster-private-asg"
   associate_public_ip_address = false
   iam_instance_profile        = aws_iam_instance_profile.ecs_host_profile.name
   image_id                    = data.aws_ami.ecs_ami.id
