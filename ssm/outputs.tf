@@ -29,6 +29,30 @@ output "parameter" {
       id     = aws_ssm_parameter.jira_db_user.id,
       key_id = aws_ssm_parameter.jira_db_user.key_id,
       name   = aws_ssm_parameter.jira_db_user.name
+    },
+    jira_test_user_password = {
+      arn    = aws_ssm_parameter.jira_test_user_password.arn,
+      id     = aws_ssm_parameter.jira_test_user_password.id,
+      key_id = aws_ssm_parameter.jira_test_user_password.key_id,
+      name   = aws_ssm_parameter.jira_test_user_password.name
+    },
+    jira_test_username = {
+      arn    = aws_ssm_parameter.jira_test_username.arn,
+      id     = aws_ssm_parameter.jira_test_username.id,
+      key_id = aws_ssm_parameter.jira_test_username.key_id,
+      name   = aws_ssm_parameter.jira_test_username.name
+    },
+    jira_test_full_name = {
+      arn    = aws_ssm_parameter.jira_test_full_name.arn,
+      id     = aws_ssm_parameter.jira_test_full_name.id,
+      key_id = aws_ssm_parameter.jira_test_full_name.key_id,
+      name   = aws_ssm_parameter.jira_test_full_name.name
+    },
+    jira_test_user_email = {
+      arn    = aws_ssm_parameter.jira_test_user_email.arn,
+      id     = aws_ssm_parameter.jira_test_user_email.id,
+      key_id = aws_ssm_parameter.jira_test_user_email.key_id,
+      name   = aws_ssm_parameter.jira_test_user_email.name
     }
   }
 }
