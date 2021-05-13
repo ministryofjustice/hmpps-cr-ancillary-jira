@@ -61,9 +61,9 @@ module "jira_db" {
 
   tags = var.tags
 
-  backup_retention_period = 14    #days
+  backup_retention_period = 14 #days
   # backtrack_window        = 86400 # seconds = 24 hours # not applicable in this type of cluster
-  copy_tags_to_snapshot   = true
+  copy_tags_to_snapshot = true
 }
 
 //create_cluster
