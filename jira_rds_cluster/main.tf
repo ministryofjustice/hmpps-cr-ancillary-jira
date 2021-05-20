@@ -42,7 +42,7 @@ module "jira_db" {
   create_security_group      = true
   security_group_description = "Jira DB"
   #allowed_cidr_blocks        = local.private_subnets_cidr_blocks
-  allowed_security_groups    = local.allowed_security_groups
+  allowed_security_groups = local.allowed_security_groups
 
   replica_count                       = 2
   iam_database_authentication_enabled = true
@@ -52,15 +52,18 @@ module "jira_db" {
   kms_key_id                          = local.jira_kms_key_arn
 
   apply_immediately   = true
-  skip_final_snapshot = true
-
-  deletion_protection = false #TODO set true for prod
+  skip_final_snapshot = tobool(var.tags["is-production"]) ? false : true # set to false for production
+  deletion_protection = tobool(var.tags["is-production"])                # set true for prod
 
   db_parameter_group_name         = aws_db_parameter_group.jira_db.id
   db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.jira_db.id
   enabled_cloudwatch_logs_exports = ["postgresql"]
 
   tags = var.tags
+
+  backup_retention_period = 14 #days
+  # backtrack_window        = 86400 # seconds = 24 hours # not applicable in this type of cluster
+  copy_tags_to_snapshot = true
 }
 
 //create_cluster
