@@ -2,35 +2,15 @@ data "aws_caller_identity" "current" {}
 
 data "aws_region" "current" {}
 
-//data "terraform_remote_state" "vpc" {
-//  backend = "s3"
-//
-//  config = {
-//    bucket = var.remote_state_bucket_name
-//    key    = "vpc/terraform.tfstate"
-//    region = var.region
-//  }
-//}
-//
-//data "terraform_remote_state" "security-groups" {
-//  backend = "s3"
-//
-//  config = {
-//    bucket = var.remote_state_bucket_name
-//    key    = "security-groups/terraform.tfstate"
-//    region = var.region
-//  }
-//}
-//#
-//locals {
-//  name          = var.environment_name
-//  jira_efs_name = "${local.name}-jira-efs"
-//  efs_security_groups = [
-//    data.terraform_remote_state.security-groups.outputs.id["ingress_to_efs"]
-//  ]
-//  db_subnet_ids = [
-//    data.terraform_remote_state.vpc.outputs.vpc_subnet["az1"]["id"]["db"],
-//    data.terraform_remote_state.vpc.outputs.vpc_subnet["az2"]["id"]["db"],
-//    data.terraform_remote_state.vpc.outputs.vpc_subnet["az3"]["id"]["db"],
-//  ]
-//}
+data "template_file" "s3_data_bucket_policy" {
+  template = file("policies/s3_data_bucket_policy.json")
+
+  vars = {
+    s3_bucket_arn                = aws_s3_bucket.data.arn
+    hmpps-engineering-prod       = var.aws_engineering_account_ids["prod"]
+    hmpps-engineering-non-prod   = var.aws_engineering_account_ids["non-prod"]
+    hmpps-probation              = var.aws_account_ids["hmpps-probation"]
+    hmpps-cr-jira-non-production = var.cr_account_ids["hmpps-cr-jira-non-production"]
+    hmpps-cr-jira-production     = var.cr_account_ids["hmpps-cr-jira-production"]
+  }
+}

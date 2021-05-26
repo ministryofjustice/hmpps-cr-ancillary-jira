@@ -21,3 +21,16 @@ variable "environment_identifier" {
 variable "tiny_environment_identifier" {
   type = string
 }
+
+
+variable "aws_account_ids" {
+  type = map(string)
+}
+
+variable "cr_account_ids" {
+  type = map(string)
+}
+
+variable "aws_engineering_account_ids" {
+  type = map(string)
+}
