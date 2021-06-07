@@ -21,7 +21,7 @@ module "jira_ec2" {
     jira_data_dns_name      = local.efs["dns_name"]
     jira_db_endpoint        = local.rds_cluster["endpoint"]
     jira_db_master_username = local.rds_cluster["master_username"]
-    //    dns_name                = "service2" # for dev
+    //dns_name                = "service2" # for dev
     dns_name         = "service" #to bootstrap prod
     name             = "${var.environment_name}-ec2"
     public_ssl_arn   = data.terraform_remote_state.vpc.outputs.strategic_public_ssl_arn[0]
