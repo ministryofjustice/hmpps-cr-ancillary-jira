@@ -158,7 +158,7 @@ cat << EOF > ~/requirements.yml
 
 - name: bootstrap
   src: https://github.com/ministryofjustice/hmpps-cr-ancillary-jira-ansible
-  version: initial_structure
+  version: testing
 EOF
 
 # Setup Ansible Vars
@@ -173,6 +173,7 @@ jira_config_path: ${jira_config_path}
 jira_config_volume_name: ${jira_config_volume_name}
 jira_config_volume_root_dir: ${jira_config_volume_root_dir}
 alb_fqdn: ${alb_fqdn}
+cwlogs_log_group: ${jira_cloudwatch_log_group}
 
 EOF
 
