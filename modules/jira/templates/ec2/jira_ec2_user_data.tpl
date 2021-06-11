@@ -174,6 +174,8 @@ jira_config_volume_name: ${jira_config_volume_name}
 jira_config_volume_root_dir: ${jira_config_volume_root_dir}
 alb_fqdn: ${alb_fqdn}
 cwlogs_log_group: ${jira_cloudwatch_log_group}
+region: ${region}
+instance_id: `curl http://169.254.169.254/latest/meta-data/instance-id`
 
 EOF
 
