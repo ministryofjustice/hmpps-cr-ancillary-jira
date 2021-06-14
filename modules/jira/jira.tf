@@ -32,7 +32,7 @@ resource "aws_autoscaling_group" "jira_asg" {
   tags = [
     for key, value in merge(var.tags, {
       "Name" = "${var.jira_data["name"]}-pri-asg"
-    }) : {
+      }) : {
       key                 = key
       value               = value
       propagate_at_launch = true
