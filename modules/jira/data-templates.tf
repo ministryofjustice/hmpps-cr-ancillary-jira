@@ -28,6 +28,8 @@ data "template_file" "jira_role_policy_template" {
   }
 }
 
+
+
 //data "template_file" "jira_user_data_template" {
 //  template = file("${path.module}/templates/ec2/jira_user_data.tpl")
 //
@@ -89,5 +91,16 @@ data "null_data_source" "tags" {
     key                 = element(keys(var.tags), count.index)
     value               = element(values(var.tags), count.index)
     propagate_at_launch = true
+  }
+}
+
+data "template_file" "ec2_s3_access_policy" {
+  template = file("${path.module}/templates/iam/ec2_s3_access_policy.tpl")
+
+  vars = {
+    dev_bucket_kms_arn  = "arn:aws:kms:eu-west-2:529698415668:key/413ea60b-c82d-4a50-9cdf-7418ff02dffb"
+    prod_bucket_kms_arn = "arn:aws:kms:eu-west-2:172219029581:key/f70f9bbc-d943-4c5c-914b-ea37be341590"
+    dev_bucket_arn      = "arn:aws:s3:::eu-west-2-cr-jira-dev-data"
+    prod_bucket_arn     = "arn:aws:s3:::eu-west-2-cr-jira-prod-data"
   }
 }
