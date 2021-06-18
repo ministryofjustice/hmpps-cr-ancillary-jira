@@ -8,7 +8,7 @@ resource "aws_cloudwatch_metric_alarm" "lb_healthy_hosts_less_than_one" {
   period              = 60
   statistic           = "Average"
   threshold           = 1
-  alarm_description   = "No Healthy Hosts!!! JitBit Application is down"
+  alarm_description   = "No Healthy Hosts!!! Jira EC2 Application is down"
   alarm_actions       = [local.sns_alarm_notification_arn]
   ok_actions          = [local.sns_alarm_notification_arn]
 

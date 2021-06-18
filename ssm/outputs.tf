@@ -53,6 +53,12 @@ output "parameter" {
       id     = aws_ssm_parameter.jira_test_user_email.id,
       key_id = aws_ssm_parameter.jira_test_user_email.key_id,
       name   = aws_ssm_parameter.jira_test_user_email.name
+    },
+    tmp_admin_cidr = {
+      arn    = aws_ssm_parameter.tmp_admin_cidr.arn,
+      id     = aws_ssm_parameter.tmp_admin_cidr.id,
+      key_id = aws_ssm_parameter.tmp_admin_cidr.key_id,
+      name   = aws_ssm_parameter.tmp_admin_cidr.name
     }
   }
 }
