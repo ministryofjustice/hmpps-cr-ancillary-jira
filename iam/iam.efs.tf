@@ -2,6 +2,12 @@
 resource "aws_iam_role" "efs_backup_role" {
   name               = "${local.name}-efs-backup-iam"
   assume_role_policy = templatefile("${path.module}/templates/iam/backup_assume_role.tpl", {})
+  tags = merge(
+    var.tags,
+    {
+      "Name" = "${local.name}-efs-backup-iam"
+    },
+  )
 }
 
 resource "aws_iam_role_policy_attachment" "efs_backup_policy" {
@@ -13,6 +19,12 @@ resource "aws_iam_role_policy_attachment" "efs_backup_policy" {
 resource "aws_iam_role" "efs_restore_role" {
   name               = "${local.name}-efs-restore-iam"
   assume_role_policy = templatefile("${path.module}/templates/iam/backup_assume_role.tpl", {})
+  tags = merge(
+    var.tags,
+    {
+      "Name" = "${local.name}-efs-restore-iam"
+    },
+  )
 }
 
 ## The "AWSBackupServiceRolePolicyForBackup" AWS managed policy is missing a few KMS actions - after testing we learned that
