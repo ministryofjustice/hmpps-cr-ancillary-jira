@@ -24,3 +24,13 @@ resource "aws_iam_role_policy_attachment" "jira_ssm_agent" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
   role       = aws_iam_role.jira_role.name
 }
+
+resource "aws_iam_policy" "pri_s3_access_policy" {
+  name   = "${var.jira_data["name"]}-pri-s3-iam"
+  policy = data.template_file.ec2_s3_access_policy.rendered
+}
+
+resource "aws_iam_role_policy_attachment" "pri_s3_access_policy" {
+  policy_arn = aws_iam_policy.pri_s3_access_policy.arn
+  role       = aws_iam_role.jira_role.name
+}

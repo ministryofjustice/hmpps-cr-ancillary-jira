@@ -137,6 +137,7 @@ cat << EOF > ~/requirements.yml
 
 - name: bootstrap
   src: https://github.com/ministryofjustice/hmpps-cr-ancillary-jira-ansible
+  version: testing
 EOF
 
 # Setup Ansible Vars
@@ -175,9 +176,11 @@ EOF
 #
 chmod u+x ~/runboot.sh
 
-# Run the boot script
-~/runboot.sh
+
 
 docker pull atlassian/jira-servicemanagement
 curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
+
+# Run the boot script
+~/runboot.sh

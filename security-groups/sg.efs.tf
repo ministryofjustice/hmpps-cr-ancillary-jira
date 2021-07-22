@@ -4,10 +4,10 @@ resource "aws_security_group" "ingress_to_efs" {
   description = "Ingress to EFS SG"
   vpc_id      = local.vpc_id
   tags = merge(
-  var.tags,
-  {
-    "Name" = "${local.name}-efs"
-  },
+    var.tags,
+    {
+      "Name" = "${local.name}-efs"
+    },
   )
 }
 

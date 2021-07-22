@@ -6,8 +6,6 @@
 module "jira_ec2" {
   source = "../modules/jira"
 
-
-
   # standard data
   jira_data = {
     aws_account_id          = data.aws_caller_identity.current.id
@@ -21,8 +19,8 @@ module "jira_ec2" {
     jira_data_dns_name      = local.efs["dns_name"]
     jira_db_endpoint        = local.rds_cluster["endpoint"]
     jira_db_master_username = local.rds_cluster["master_username"]
-    //    dns_name                = "service2" # for dev
-    dns_name         = "service" #to bootstrap prod
+    //dns_name                = "service2" # for dev
+    dns_name         = var.environment_name == "cr-jira-prod" ? "service" : "service2" #to bootstrap prod
     name             = "${var.environment_name}-ec2"
     public_ssl_arn   = data.terraform_remote_state.vpc.outputs.strategic_public_ssl_arn[0]
     ssh_deployer_key = data.terraform_remote_state.vpc.outputs.ssh_deployer_key

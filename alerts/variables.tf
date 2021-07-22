@@ -17,19 +17,3 @@ variable "remote_state_bucket_name" {
 variable "environment_identifier" {
   description = "resource label or name"
 }
-
-variable "cr_ancillary_admin_cidrs" {
-  type = list(string)
-}
-
-variable "cr_ancillary_access_cidrs" {
-  type = list(string)
-}
-
-variable "cr_ancillary_route53_healthcheck_access_cidrs" {
-  type = list(string)
-}
-
-variable "cr_ancillary_route53_healthcheck_access_ipv6_cidrs" {
-  type = list(string)
-}
