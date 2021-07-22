@@ -12,10 +12,6 @@ resource "aws_cloudwatch_metric_alarm" "db_cpu_critical" {
   alarm_actions       = [local.sns_alarm_notification_arn]
   ok_actions          = [local.sns_alarm_notification_arn]
 
-//  dimensions = {
-//    DBInstanceIdentifier = local.db_instance_id
-//  }
-
   tags = local.tags
 }
 
@@ -32,10 +28,6 @@ resource "aws_cloudwatch_metric_alarm" "db_cpu_warning" {
   alarm_description   = "Database CPU averaging over 70, check for database."
   alarm_actions       = [local.sns_alarm_notification_arn]
   ok_actions          = [local.sns_alarm_notification_arn]
-
-//  dimensions = {
-//    DBInstanceIdentifier = local.db_instance_id
-//  }
 
   tags = local.tags
 }
@@ -54,10 +46,6 @@ resource "aws_cloudwatch_metric_alarm" "db_cpu_credit_balance" {
   alarm_actions       = [local.sns_alarm_notification_arn]
   ok_actions          = [local.sns_alarm_notification_arn]
 
-//  dimensions = {
-//    DBInstanceIdentifier = local.db_instance_id
-//  }
-
   tags = local.tags
 }
 
@@ -74,10 +62,6 @@ resource "aws_cloudwatch_metric_alarm" "db_disk_queue_depth" {
   alarm_description   = "Average database disk queue depth is too high, performance may be negatively impacted."
   alarm_actions       = [local.sns_alarm_notification_arn]
   ok_actions          = [local.sns_alarm_notification_arn]
-
-//  dimensions = {
-//    DBInstanceIdentifier = local.db_instance_id
-//  }
 
   tags = local.tags
 }
@@ -96,10 +80,6 @@ resource "aws_cloudwatch_metric_alarm" "db_free_storage_space_critical" {
   alarm_actions       = [local.sns_alarm_notification_arn]
   ok_actions          = [local.sns_alarm_notification_arn]
 
-//  dimensions = {
-//    DBInstanceIdentifier = local.db_instance_id
-//  }
-
   tags = local.tags
 }
 
@@ -116,10 +96,6 @@ resource "aws_cloudwatch_metric_alarm" "db_free_storage_space_warning" {
   alarm_description   = "Average database free storage space is low and may fill up soon."
   alarm_actions       = [local.sns_alarm_notification_arn]
   ok_actions          = [local.sns_alarm_notification_arn]
-
-//  dimensions = {
-//    DBInstanceIdentifier = local.db_instance_id
-//  }
 
   tags = local.tags
 }
@@ -138,10 +114,6 @@ resource "aws_cloudwatch_metric_alarm" "db_burst_balance" {
   alarm_actions       = [local.sns_alarm_notification_arn]
   ok_actions          = [local.sns_alarm_notification_arn]
 
-//  dimensions = {
-//    DBInstanceIdentifier = local.db_instance_id
-//  }
-
   tags = local.tags
 }
 
@@ -159,10 +131,6 @@ resource "aws_cloudwatch_metric_alarm" "db_freeable_memory" {
   alarm_actions       = [local.sns_alarm_notification_arn]
   ok_actions          = [local.sns_alarm_notification_arn]
 
-//  dimensions = {
-//    DBInstanceIdentifier = local.db_instance_id
-//  }
-
   tags = local.tags
 }
 
@@ -179,10 +147,6 @@ resource "aws_cloudwatch_metric_alarm" "db_connections" {
   alarm_description   = "Average database connections over 200, check for database"
   alarm_actions       = [local.sns_alarm_notification_arn]
   ok_actions          = [local.sns_alarm_notification_arn]
-
-//  dimensions = {
-//    DBInstanceIdentifier = local.db_instance_id
-//  }
 
   tags = local.tags
 }
@@ -213,10 +177,6 @@ resource "aws_cloudwatch_metric_alarm" "db_anomalous_connections" {
       period      = 600
       stat        = "Average"
       unit        = "Count"
-
-//      dimensions = {
-//        DBInstanceIdentifier = local.db_instance_id
-//      }
     }
   }
 
