@@ -26,7 +26,7 @@ resource "aws_rds_cluster_parameter_group" "jira_db" {
 
 module "jira_db" {
   source  = "terraform-aws-modules/rds-aurora/aws"
-  version = "~> 4.2"
+  version = "~> 5.2"
 
   database_name = "jira"
 
@@ -34,8 +34,8 @@ module "jira_db" {
   name                  = local.db_name
   engine                = "aurora-postgresql"
   engine_version        = "11.9"
-  instance_type         = "db.r5.large"
-  instance_type_replica = "db.t3.medium"
+  instance_type         = "db.r6g.large"
+  instance_type_replica = "db.r6g.large"
 
   vpc_id                     = local.vpc_id
   db_subnet_group_name       = aws_db_subnet_group.jira_db_subnet_group.name
@@ -64,6 +64,12 @@ module "jira_db" {
   backup_retention_period = 14 #days
   # backtrack_window        = 86400 # seconds = 24 hours # not applicable in this type of cluster
   copy_tags_to_snapshot = true
+
+  monitoring_interval             = 10
+  create_monitoring_role          = false
+  monitoring_role_arn             = local.rds_enhanced_monitoring_role_arn
+  performance_insights_enabled    = true
+  performance_insights_kms_key_id = local.jira_kms_key_arn
 }
 
 //create_cluster

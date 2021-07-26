@@ -12,3 +12,13 @@ output "efs" {
     }
   }
 }
+
+output "rds" {
+  value = {
+    enhanced_monitoring_role = {
+      name = aws_iam_role.rds_enhanced_monitoring.name
+      id   = aws_iam_role.rds_enhanced_monitoring.id
+      arn  = aws_iam_role.rds_enhanced_monitoring.arn
+    }
+  }
+}
