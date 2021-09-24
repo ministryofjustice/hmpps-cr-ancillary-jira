@@ -1,3 +1,10 @@
+resource "aws_cloudwatch_log_group" "this" {
+  name              = "${local.name}-ecs"
+  retention_in_days = 14
+  tags              = merge(var.tags, map("Name", "${local.name}-ecs"))
+}
+
+
 resource "aws_ecs_cluster" "this" {
   name = var.environment_name
 
@@ -9,6 +16,18 @@ resource "aws_ecs_cluster" "this" {
   }
 
   tags = merge(var.tags, map("Name", "${local.name}-ecs"))
+
+  configuration {
+    execute_command_configuration {
+      kms_key_id = local.kms_key_arn
+      logging    = "OVERRIDE"
+
+      log_configuration {
+        cloud_watch_encryption_enabled = true
+        cloud_watch_log_group_name     = aws_cloudwatch_log_group.this.name
+      }
+    }
+  }
 }
 
 # Create a private service namespace to allow tasks to discover & communicate with each other
