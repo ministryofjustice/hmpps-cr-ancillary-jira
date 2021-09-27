@@ -13,7 +13,11 @@
         "logs:PutLogEvents",
         "application-autoscaling:*",
         "cloudwatch:DescribeAlarms",
-        "cloudwatch:PutMetricAlarm"
+        "cloudwatch:PutMetricAlarm",
+        "ssmmessages:CreateControlChannel",
+        "ssmmessages:CreateDataChannel",
+        "ssmmessages:OpenControlChannel",
+        "ssmmessages:OpenDataChannel"
       ],
       "Resource": "*"
     },

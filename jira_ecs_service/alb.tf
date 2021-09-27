@@ -87,7 +87,7 @@ resource "aws_lb_target_group" "http" {
   }
 
   health_check {
-    timeout             = 60
+    timeout             = 120
     interval            = 300
     path                = "/status"
     protocol            = "HTTP"

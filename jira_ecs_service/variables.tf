@@ -27,7 +27,7 @@ variable "jira_ecs_conf" {
     image_version = "4.16.1"
     service_port  = "8080"
     cpu           = "1024"
-    memory        = "2048"
+    memory        = "4096"
 
     ehcache_listener_port = "40001" # (default: 40001)
 
