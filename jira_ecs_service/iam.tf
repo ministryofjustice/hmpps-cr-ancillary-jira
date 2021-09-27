@@ -16,6 +16,15 @@ resource "aws_iam_role_policy" "jira_execute_policy" {
   )
 }
 
+data "aws_iam_policy" "AmazonECSTaskExecutionRolePolicy" {
+  arn = "arn:aws:iam::aws:policy/AmazonECSTaskExecutionRolePolicy"
+}
+
+resource "aws_iam_role_policy_attachment" "AmazonECSTaskExecutionRolePolicy-attach" {
+  role       = "${aws_iam_role.jira_execute.name}"
+  policy_arn = "${data.aws_iam_policy.AmazonECSTaskExecutionRolePolicy.arn}"
+}
+
 # Task role for the Jira task to interact with AWS services, e.g. managed ES
 resource "aws_iam_role" "jira_task" {
   name               = "${local.name}-jira-task-pri-iam"
@@ -24,6 +33,6 @@ resource "aws_iam_role" "jira_task" {
 
 //resource "aws_iam_role_policy" "jira_task_policy" {
 //  name = "${local.name}-jira-task-pri-iam"
-//  role = aws_iam_role.jira_task_role.name
+//  role = aws_iam_role.jira_task.name
 //  policy = templatefile("${path.module}/templates/iam/jira_task_policy.tpl", {})
 //}
