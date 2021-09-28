@@ -32,6 +32,16 @@
           "arn:aws:kms:${region}:${aws_account_id}:alias/aws/ssm",
           "${jira_db_user_password}"
       ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "kms:Decrypt",
+        "kms:GenerateDataKey"
+      ],
+      "Resource": [
+          "${kms_arn}"
+      ]
     }
   ]
 }
