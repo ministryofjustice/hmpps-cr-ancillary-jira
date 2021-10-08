@@ -24,7 +24,7 @@ variable "jira_ecs_conf" {
 
   default = {
     image         = "docker.io/atlassian/jira-servicemanagement"
-    image_version = "4.16.1"
+    image_version = "4.17.0"
     service_port  = "8080"
     cpu           = "1024"
     memory        = "4096"
