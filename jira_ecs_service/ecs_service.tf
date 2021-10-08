@@ -56,14 +56,14 @@ resource "aws_ecs_task_definition" "jira_service" {
     }
   }
 
-  volume {
-    name = var.jira_conf["jira_config_volume_name"]
-    efs_volume_configuration {
-      file_system_id     = local.efs["id"]
-      root_directory     = var.jira_conf["jira_config_volume_root_dir"]
-      transit_encryption = "ENABLED"
-    }
-  }
+//  volume {
+//    name = var.jira_conf["jira_config_volume_name"]
+//    efs_volume_configuration {
+//      file_system_id     = local.efs["id"]
+//      root_directory     = var.jira_conf["jira_config_volume_root_dir"]
+//      transit_encryption = "ENABLED"
+//    }
+//  }
   tags = merge(var.tags, map("Name", "${local.jira_service_name}-ecs"))
 }
 

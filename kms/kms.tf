@@ -2,7 +2,11 @@ resource "aws_kms_key" "jira_key" {
   description             = "JIRA Encryption Key"
   enable_key_rotation     = true
   deletion_window_in_days = 30
-  policy                  = templatefile("${path.module}/kms_key_mgmt_policy.tpl", { aws_account_id = data.aws_caller_identity.current.account_id })
+  policy = templatefile("${path.module}/kms_key_mgmt_policy.tpl", {
+    aws_account_id = data.aws_caller_identity.current.account_id
+    region         = var.region
+    }
+  )
   tags = merge(
     var.tags,
     {

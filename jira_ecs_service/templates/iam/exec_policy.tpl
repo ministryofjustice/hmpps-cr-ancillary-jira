@@ -29,19 +29,31 @@
         "kms:Decrypt"
       ],
       "Resource": [
-          "arn:aws:kms:${region}:${aws_account_id}:alias/aws/ssm",
-          "${jira_db_user_password}"
+        "arn:aws:kms:${region}:${aws_account_id}:alias/aws/ssm",
+        "${jira_db_user_password}"
       ]
     },
     {
       "Effect": "Allow",
       "Action": [
-        "kms:Decrypt",
-        "kms:GenerateDataKey"
+        "kms:Decrypt"
       ],
-      "Resource": [
-          "${kms_arn}"
-      ]
+      "Resource": "${kms_arn}"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "kms:GenerateDataKey",
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents",
+        "logs:DescribeLogGroups",
+        "logs:DescribeLogStreams"
+      ],
+      "Resource": "*"
     }
   ]
 }

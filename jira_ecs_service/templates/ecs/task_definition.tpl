@@ -79,10 +79,6 @@
         {
             "containerPath": "${sharedhome_path}",
             "sourceVolume": "${shared_home_volume_name}"
-        },
-        {
-            "containerPath": "${jira_config_path}",
-            "sourceVolume": "${jira_config_volume_name}"
         }
     ],
     "portMappings": [
