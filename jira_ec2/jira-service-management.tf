@@ -52,18 +52,20 @@ module "jira_ec2" {
 
 
   jira_conf = {
-    login_duration              = "28800"
-    jira_db_driver              = "org.postgresql.Driver"
-    jira_db_type                = "postgresaurora96"
-    sharedhome_path             = "/var/atlassian/application-data/jira"
-    shared_home_volume_name     = "jira_shared_home"
-    shared_home_volume_root_dir = "/jira_shared_home"
-    jira_config_path            = "/opt/atlassian/jira/conf"
-    jira_config_volume_name     = "jira_config"
-    jira_config_volume_root_dir = "/jira_config"
-    jira_type                   = "jira-ec2"
-    instance_type               = "m5.large"
-    log_retention               = 14
-    image_id                    = data.aws_ami.latest_ecs.id
+    login_duration                = "28800"
+    jira_db_driver                = "org.postgresql.Driver"
+    jira_db_type                  = "postgresaurora96"
+    sharedhome_path               = "/var/atlassian/application-data/jira"
+    shared_home_volume_name       = "jira_shared_home"
+    shared_home_volume_root_dir   = "/jira_shared_home"
+    jira_config_path              = "/opt/atlassian/jira/conf"
+    jira_config_volume_name       = "jira_config"
+    jira_config_volume_root_dir   = "/jira_config"
+    jira_type                     = "jira-ec2"
+    instance_type                 = "m5.large"
+    log_retention                 = 14
+    image_id                      = data.aws_ami.latest_ecs.id
+    jira_docker_hub_image         = "atlassian/jira-servicemanagement"
+    jira_docker_hub_image_version = "4.17.0"
   }
 }

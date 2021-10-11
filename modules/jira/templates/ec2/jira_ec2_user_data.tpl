@@ -172,6 +172,8 @@ shared_home_volume_root_dir: ${shared_home_volume_root_dir}
 jira_config_path: ${jira_config_path}
 jira_config_volume_name: ${jira_config_volume_name}
 jira_config_volume_root_dir: ${jira_config_volume_root_dir}
+jira_docker_hub_image: ${jira_docker_hub_image}
+jira_docker_hub_image_version: ${jira_docker_hub_image_version}
 alb_fqdn: ${alb_fqdn}
 cwlogs_log_group: ${jira_cloudwatch_log_group}
 region: ${region}

@@ -80,6 +80,9 @@ data "template_file" "jira_user_data_template" {
     jira_config_path            = var.jira_conf["jira_config_path"]
     jira_config_volume_name     = var.jira_conf["jira_config_volume_name"]
     jira_config_volume_root_dir = var.jira_conf["jira_config_volume_root_dir"]
+
+    jira_docker_hub_image         = var.jira_conf["jira_docker_hub_image"]
+    jira_docker_hub_image_version = var.jira_conf["jira_docker_hub_image_version"]
   }
 }
 
