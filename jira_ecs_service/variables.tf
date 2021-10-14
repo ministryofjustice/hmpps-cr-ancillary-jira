@@ -37,6 +37,8 @@ variable "jira_ecs_conf" {
 
     # ECS Task App AutoScaling will kick in above avg cpu util set here
     ecs_target_cpu = "60"
+
+    clustered = true
   }
 }
 

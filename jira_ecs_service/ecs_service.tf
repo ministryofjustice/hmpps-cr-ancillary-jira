@@ -33,6 +33,7 @@ resource "aws_ecs_task_definition" "jira_service" {
       image_version           = var.jira_ecs_conf["image_version"]
       service_port            = var.jira_ecs_conf["service_port"]
       ehcache_listener_port   = var.jira_ecs_conf["ehcache_listener_port"]
+      clustered               = var.jira_ecs_conf["clustered"]
       log_group_name          = aws_cloudwatch_log_group.jira_service_log_group.name
       alb_fqdn                = aws_route53_record.alb_public_dns.fqdn
       jc_login_duration       = var.jira_conf["login_duration"]
@@ -56,14 +57,14 @@ resource "aws_ecs_task_definition" "jira_service" {
     }
   }
 
-//  volume {
-//    name = var.jira_conf["jira_config_volume_name"]
-//    efs_volume_configuration {
-//      file_system_id     = local.efs["id"]
-//      root_directory     = var.jira_conf["jira_config_volume_root_dir"]
-//      transit_encryption = "ENABLED"
-//    }
-//  }
+  //  volume {
+  //    name = var.jira_conf["jira_config_volume_name"]
+  //    efs_volume_configuration {
+  //      file_system_id     = local.efs["id"]
+  //      root_directory     = var.jira_conf["jira_config_volume_root_dir"]
+  //      transit_encryption = "ENABLED"
+  //    }
+  //  }
   tags = merge(var.tags, map("Name", "${local.jira_service_name}-ecs"))
 }
 
@@ -76,7 +77,7 @@ resource "aws_ecs_service" "jira_service" {
 
   desired_count = 1
   //launch_type   = "EC2"
-  launch_type   = "FARGATE"
+  launch_type = "FARGATE"
 
   enable_execute_command = true
 

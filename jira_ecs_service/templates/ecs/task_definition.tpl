@@ -25,7 +25,7 @@
         },
         {
             "name": "CLUSTERED",
-            "value": "false"
+            "value": "${clustered}"
         },
         {
             "name": "ATL_PROXY_NAME",
@@ -37,7 +37,7 @@
         },
         {
             "name": "ATL_TOMCAT_SCHEME",
-            "value": "HTTPS"
+            "value": "https"
         },
         {
             "name": "ATL_TOMCAT_SECURE",
