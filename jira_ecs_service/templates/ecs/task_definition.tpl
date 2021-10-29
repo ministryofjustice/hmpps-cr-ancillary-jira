@@ -28,6 +28,14 @@
             "value": "${clustered}"
         },
         {
+            "name": "JIRA_HOME",
+            "value": "${container_jira_home}"
+        },
+        {
+            "name": "JIRA_SHARED_HOME",
+            "value": "${container_jira_shared_home}"
+        },
+        {
             "name": "ATL_PROXY_NAME",
             "value": "${alb_fqdn}"
         },
@@ -49,7 +57,7 @@
         },
         {
             "name": "ATL_JDBC_URL",
-            "value": "${jira_db_endpoint}"
+            "value": "jdbc:postgresql://${jira_db_endpoint}:5432/jira?targetServerType=master"
         },
         {
             "name": "ATL_JDBC_USER",
@@ -77,8 +85,12 @@
     "volumesFrom": [],
     "mountPoints": [
         {
-            "containerPath": "${sharedhome_path}",
-            "sourceVolume": "${shared_home_volume_name}"
+            "containerPath": "${container_jira_home}",
+            "sourceVolume": "${src_jira_home_node1}"
+        },
+        {
+            "containerPath": "${container_jira_shared_home}",
+            "sourceVolume": "${src_shared_home}"
         }
     ],
     "portMappings": [

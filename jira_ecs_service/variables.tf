@@ -50,15 +50,17 @@ variable "jira_conf" {
     ## Jira (default: 1209600; two weeks, in seconds)
     ## The maximum time a user can remain logged-in with 'Remember Me'.
     ## Override to 1 working day of 8 hours (60 seconds * 60 minutes * 8 hours = 28800)
-    login_duration              = "28800"
-    jira_db_driver              = "org.postgresql.Driver"
-    jira_db_type                = "postgresaurora96"
-    sharedhome_path             = "/var/atlassian/application-data/jira"
-    shared_home_volume_name     = "jira_shared_home"
-    shared_home_volume_root_dir = "/jira_shared_home"
-    jira_config_path            = "/opt/atlassian/jira/conf"
-    jira_config_volume_name     = "jira_config"
-    jira_config_volume_root_dir = "/jira_config"
+    login_duration             = "28800"
+    jira_db_driver             = "org.postgresql.Driver"
+    jira_db_type               = "postgresaurora96"
+    efs_jira_base_dir          = "/var/jira"
+    src_jira_home              = "/var/jira/jira_home"
+    src_jira_home_node1        = "/var/jira/jira_home_node1"
+    src_jira_home_node2        = "/var/jira/jira_home_node2"
+    src_jira_home_node3        = "/var/jira/jira_home_node3"
+    src_shared_home            = "/var/jira/jira_shared_home"
+    container_jira_home        = "/var/atlassian/application-data/jira"
+    container_jira_shared_home = "/var/atlassian/application-data/shared"
   }
 }
 
