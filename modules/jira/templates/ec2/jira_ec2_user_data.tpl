@@ -166,12 +166,20 @@ cat << EOF > ~/vars.yml
 jira_data_volume_id: ${jira_data_volume_id}
 jira_db_host: ${jira_db_endpoint}
 jira_db_master_username: ${jira_db_master_username}
-sharedhome_path: ${sharedhome_path}
-shared_home_volume_name: ${shared_home_volume_name}
-shared_home_volume_root_dir: ${shared_home_volume_root_dir}
-jira_config_path: ${jira_config_path}
-jira_config_volume_name: ${jira_config_volume_name}
-jira_config_volume_root_dir: ${jira_config_volume_root_dir}
+efs_jira_base_dir: ${efs_jira_base_dir}
+src_jira_home : ${src_jira_home}
+src_jira_home_node1: ${src_jira_home_node1}
+src_jira_home_node2: ${src_jira_home_node2}
+src_jira_home_node3: ${src_jira_home_node3}
+src_shared_home: ${src_shared_home}
+efs_directories:
+  - ${src_jira_home}
+  - ${src_jira_home_node1}
+  - ${src_jira_home_node2}
+  - ${src_jira_home_node3}
+  - ${src_shared_home}
+container_jira_home: ${container_jira_home}
+container_jira_shared_home: ${container_jira_shared_home}
 jira_docker_hub_image: ${jira_docker_hub_image}
 jira_docker_hub_image_version: ${jira_docker_hub_image_version}
 alb_fqdn: ${alb_fqdn}

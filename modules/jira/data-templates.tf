@@ -74,12 +74,14 @@ data "template_file" "jira_user_data_template" {
     jira_db_master_username   = var.jira_data["jira_db_master_username"]
     alb_fqdn                  = aws_route53_record.alb_public_dns.fqdn
 
-    sharedhome_path             = var.jira_conf["sharedhome_path"]
-    shared_home_volume_name     = var.jira_conf["shared_home_volume_name"]
-    shared_home_volume_root_dir = var.jira_conf["shared_home_volume_root_dir"]
-    jira_config_path            = var.jira_conf["jira_config_path"]
-    jira_config_volume_name     = var.jira_conf["jira_config_volume_name"]
-    jira_config_volume_root_dir = var.jira_conf["jira_config_volume_root_dir"]
+    efs_jira_base_dir          = var.jira_conf["efs_jira_base_dir"]
+    src_jira_home              = var.jira_conf["src_jira_home"]
+    src_jira_home_node1        = var.jira_conf["src_jira_home_node1"]
+    src_jira_home_node2        = var.jira_conf["src_jira_home_node2"]
+    src_jira_home_node3        = var.jira_conf["src_jira_home_node3"]
+    src_shared_home            = var.jira_conf["src_shared_home"]
+    container_jira_home        = var.jira_conf["container_jira_home"]
+    container_jira_shared_home = var.jira_conf["container_jira_shared_home"]
 
     jira_docker_hub_image         = var.jira_conf["jira_docker_hub_image"]
     jira_docker_hub_image_version = var.jira_conf["jira_docker_hub_image_version"]
