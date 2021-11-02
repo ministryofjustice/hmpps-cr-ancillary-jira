@@ -73,7 +73,7 @@
         },
         {
             "name": "ATL_DB_SCHEMA_NAME",
-            "value": "${jira_db_user}"
+            "value": "public"
         }
       ],
     "secrets": [
