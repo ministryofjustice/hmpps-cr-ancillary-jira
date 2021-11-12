@@ -68,6 +68,6 @@ module "jira_ec2" {
     log_retention                 = 14
     image_id                      = data.aws_ami.latest_ecs.id
     jira_docker_hub_image         = "atlassian/jira-servicemanagement"
-    jira_docker_hub_image_version = "4.17.0"
+    jira_docker_hub_image_version = "4.20.1"
   }
 }

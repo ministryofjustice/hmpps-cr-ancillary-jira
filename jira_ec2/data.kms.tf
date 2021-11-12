@@ -9,6 +9,6 @@ data "terraform_remote_state" "kms" {
 }
 
 locals {
-  kms_key_arn = data.terraform_remote_state.kms.outputs.key["arn"],
+  kms_key_arn = data.terraform_remote_state.kms.outputs.key["arn"]
   kms_key_id  = data.terraform_remote_state.kms.outputs.key["id"]
 }
