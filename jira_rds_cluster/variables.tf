@@ -3,7 +3,7 @@ variable "environment_name" {
 }
 
 variable "environment_type" {
-  type = string
+  type        = string
   description = "Environment type to be used as a unique identifier for resources - eg. dev or pre-prod"
 }
 
