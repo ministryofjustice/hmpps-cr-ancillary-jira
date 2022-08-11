@@ -2,6 +2,11 @@ variable "environment_name" {
   type = string
 }
 
+variable "environment_type" {
+  type = string
+  description = "Environment type to be used as a unique identifier for resources - eg. dev or pre-prod"
+}
+
 variable "tags" {
   type = map(string)
 }
