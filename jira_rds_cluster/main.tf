@@ -59,7 +59,11 @@ module "jira_db" {
   db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.jira_db.id
   enabled_cloudwatch_logs_exports = ["postgresql"]
 
-  tags = var.tags
+  tags = merge(var.tags,
+    {
+      "autostop-${var.environment_type}" = "Phase1"
+    }
+  )
 
   backup_retention_period = 14 #days
   # backtrack_window        = 86400 # seconds = 24 hours # not applicable in this type of cluster
