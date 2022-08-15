@@ -33,7 +33,7 @@ module "jira_db" {
 
   name                  = local.db_name
   engine                = "aurora-postgresql"
-  engine_version        = "11.9"
+  engine_version        = "11.13"
   instance_type         = "db.r6g.large"
   instance_type_replica = "db.r6g.large"
 
