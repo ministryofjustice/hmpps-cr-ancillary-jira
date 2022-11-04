@@ -98,9 +98,7 @@ data "template_file" "ec2_s3_access_policy" {
   template = file("${path.module}/templates/iam/ec2_s3_access_policy.tpl")
 
   vars = {
-    dev_bucket_kms_arn  = "arn:aws:kms:eu-west-2:529698415668:key/413ea60b-c82d-4a50-9cdf-7418ff02dffb"
     prod_bucket_kms_arn = "arn:aws:kms:eu-west-2:172219029581:key/f70f9bbc-d943-4c5c-914b-ea37be341590"
-    dev_bucket_arn      = "arn:aws:s3:::eu-west-2-cr-jira-dev-data"
     prod_bucket_arn     = "arn:aws:s3:::eu-west-2-cr-jira-prod-data"
   }
 }

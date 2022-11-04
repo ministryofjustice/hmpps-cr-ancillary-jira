@@ -10,7 +10,6 @@
                 "kms:GenerateDataKey"
             ],
             "Resource": [
-                "${dev_bucket_kms_arn}",
                 "${prod_bucket_kms_arn}"
             ]
         },
@@ -33,8 +32,6 @@
                 "s3:DeleteObject"
             ],
             "Resource": [
-                "${dev_bucket_arn}",
-                "${dev_bucket_arn}/*",
                 "${prod_bucket_arn}",
                 "${prod_bucket_arn}/*"
             ]

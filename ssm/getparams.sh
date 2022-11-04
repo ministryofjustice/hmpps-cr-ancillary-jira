@@ -4,7 +4,7 @@
 ## defaults to dev
 
 
-export ENVIRONMENT_NAME=${1:-cr-jira-dev}
+export ENVIRONMENT_NAME=${1:-cr-jira-prod}
 
 echo "ENVIRONMENT_NAME -- ${ENVIRONMENT_NAME}"
 export AWS_PROFILE=${ENVIRONMENT_NAME}

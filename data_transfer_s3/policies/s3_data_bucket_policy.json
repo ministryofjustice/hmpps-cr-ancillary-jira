@@ -8,7 +8,6 @@
                 "AWS": [
                     "arn:aws:iam::${hmpps-engineering-non-prod}:root",
                     "arn:aws:iam::${hmpps-probation}:root",
-                    "arn:aws:iam::${hmpps-cr-jira-non-production}:root",
                     "arn:aws:iam::${hmpps-cr-jira-production}:root"
                 ]
             },

@@ -13,7 +13,6 @@ The Jira Service Management (JSM) is hosted in an AWS Account managed and run by
 |   Account Name      	| Account ID       	| Environment Config Label 	|
 |---------	|------------------	|----------------	|
 | hmpps-cr-jira-production  	| 172219029581 	| [cr-jira-prod](https://github.com/ministryofjustice/hmpps-env-configs/tree/master/cr-jira-prod) 	|
-| hmpps-cr-jira-non-production 	| 529698415668   	| [cr-jira-dev](https://github.com/ministryofjustice/hmpps-env-configs/tree/master/cr-jira-dev) 	|
 
 ![ia-diagram](./diagrams/Jira-Service-Management_Community-Rehabilitation-Ancillary-Applications.svg)
 The diagram to the left shows the VPC, subnets and resources. This is the current IA as deployed to meet MVP1*.
