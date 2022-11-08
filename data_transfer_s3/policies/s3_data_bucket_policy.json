@@ -1,24 +1,18 @@
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "allowReadWriteAccess",
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": [
-                    "arn:aws:iam::${hmpps-engineering-non-prod}:root",
-                    "arn:aws:iam::${hmpps-probation}:root",
-                    "arn:aws:iam::${hmpps-cr-jira-non-production}:root",
-                    "arn:aws:iam::${hmpps-cr-jira-production}:root"
-                ]
-            },
-            "Action": [
-                "s3:*"
-            ],
-            "Resource": [
-                "${s3_bucket_arn}",
-                "${s3_bucket_arn}/*"
-            ]
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "allowReadWriteAccess",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": [
+          "arn:aws:iam::${hmpps-engineering-non-prod}:root",
+          "arn:aws:iam::${hmpps-probation}:root",
+          "arn:aws:iam::${hmpps-cr-jira-production}:root"
+        ]
+      },
+      "Action": ["s3:*"],
+      "Resource": ["${s3_bucket_arn}", "${s3_bucket_arn}/*"]
+    }
+  ]
 }

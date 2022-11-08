@@ -8,23 +8,20 @@ Jira Service Desk - This product is now called “Jira Service Management”.
 
 The Jira Service Management (JSM) is hosted in an AWS Account managed and run by MOJ.
 
-
-
-|   Account Name      	| Account ID       	| Environment Config Label 	|
-|---------	|------------------	|----------------	|
-| hmpps-cr-jira-production  	| 172219029581 	| [cr-jira-prod](https://github.com/ministryofjustice/hmpps-env-configs/tree/master/cr-jira-prod) 	|
-| hmpps-cr-jira-non-production 	| 529698415668   	| [cr-jira-dev](https://github.com/ministryofjustice/hmpps-env-configs/tree/master/cr-jira-dev) 	|
+| Account Name             | Account ID   | Environment Config Label                                                                        |
+| ------------------------ | ------------ | ----------------------------------------------------------------------------------------------- |
+| hmpps-cr-jira-production | 172219029581 | [cr-jira-prod](https://github.com/ministryofjustice/hmpps-env-configs/tree/master/cr-jira-prod) |
 
 ![ia-diagram](./diagrams/Jira-Service-Management_Community-Rehabilitation-Ancillary-Applications.svg)
-The diagram to the left shows the VPC, subnets and resources. This is the current IA as deployed to meet MVP1*.
+The diagram to the left shows the VPC, subnets and resources. This is the current IA as deployed to meet MVP1\*.
 The VPC will have a CIDR of 10.163.32.0/20 with three groups of subnets spanning all three Availability Zones (AZ). Routing allows traffic for updates etc out via a Nat Gateway placed in each public subnet. There is no route from the public subnet to the data subnet.
 VPC subnets:
 
-|         	| eu-west-2a       	| eu-west-2a     	| eu-west-2a       	|
-|---------	|------------------	|----------------	|------------------	|
-| Public  	| 10.163.46.128/25 	| 10.163.47.0/25 	| 10.163.47.128/25 	|
-| Private 	| 10.163.32.0/22   	| 10.163.36.0/22 	| 10.163.40.0/22   	|
-| Data    	| 10.163.44.0/24   	| 10.163.45.0/24 	| 10.163.46.0/25   	|
+|         | eu-west-2a       | eu-west-2a     | eu-west-2a       |
+| ------- | ---------------- | -------------- | ---------------- |
+| Public  | 10.163.46.128/25 | 10.163.47.0/25 | 10.163.47.128/25 |
+| Private | 10.163.32.0/22   | 10.163.36.0/22 | 10.163.40.0/22   |
+| Data    | 10.163.44.0/24   | 10.163.45.0/24 | 10.163.46.0/25   |
 
 Application load balancers in each public subnet forward traffic onto the Jira endpoint in either an EC2 Autoscaling group ((of one) MVP1) or ECS Cluster with Fargate launch provider.
 
@@ -44,6 +41,7 @@ EFS cluster uses the AWS Backup service with it’s own vault, backing up nightl
 Database uses Snapshots nightly.
 
 ## Access
+
 Each resource/service has Security Groups (SGs) to restrict egress and ingress. These are tied to each other within the VPC - for example egress from the Jira SG to ingress on the Database SG.
 The SG around the Load balancers currently only accept requests on port 443 https from DOM1 and MOJ VPN CIDRS (and specific engineers IPs during development).
 
@@ -53,4 +51,4 @@ AWS Simple Email Service (SES) has been configured to enable email from Jira to 
 
 ## Logging and Monitoring
 
-Logs are shipped to AWS Cloudwatch. Dashboards will be configured to show service performance. Alerts will be configured to inform of service degradation. 
+Logs are shipped to AWS Cloudwatch. Dashboards will be configured to show service performance. Alerts will be configured to inform of service degradation.
